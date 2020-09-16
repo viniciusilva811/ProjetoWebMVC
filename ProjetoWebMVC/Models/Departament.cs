@@ -9,5 +9,28 @@ namespace ProjetoWebMVC.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public ICollection<Seller> Sellers { get; set; } = new List<Seller>();
+
+        public Departament() 
+        {
+        }
+
+        public Departament(int id, string name)
+        {
+            Id = id;
+            Name = name;
+        }
+
+        public void AddSeller(Seller seller) 
+        {
+            Sellers.Add(seller);
+        }
+
+        public double TotalSales(DateTime initial, DateTime final)
+        {
+            return Sellers.Sum(seller => seller.TotalSales(initial, final));
+        }//pegando cada vendedor da lista, 
+        //chamando o "totalSales" do vendedor, 
+        //e faz a soma do resultado pra todos vendedores do dept
     }
 }
