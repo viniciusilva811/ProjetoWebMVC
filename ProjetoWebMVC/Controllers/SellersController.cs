@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using ProjetoWebMVC.Models;
 using ProjetoWebMVC.Models.ViewModels;
 using ProjetoWebMVC.Services;
+using ProjetoWebMVC.Services.Exceptions;
 
 namespace ProjetoWebMVC.Controllers
 {
@@ -81,6 +82,57 @@ namespace ProjetoWebMVC.Controllers
             }
 
             return View(obj);
+        }
+
+        public IActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            //se o id nao for nulo, a tela de edit pode abrir
+            var obj =  _sellerService.FindById(id.Value);
+            if (obj == null)
+            {
+                return NotFound();
+            }
+            //puxa os departamentos e popula a caixa de selecao
+            List<Departament> departments = _departamentService.FindAll();
+            SellerFormViewModel viewModel = new SellerFormViewModel { 
+                Seller = obj, 
+                Departaments = departments };
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(int id, Seller seller)
+        {
+            if (!ModelState.IsValid)
+            {
+                var departments = _departamentService.FindAll();
+                var viewModel = new SellerFormViewModel { 
+                    Seller = seller, 
+                    Departaments = departments };
+                return View(viewModel);
+            }
+            if (id != seller.Id)
+            {
+                return BadRequest();
+            }
+            try
+            {
+                _sellerService.Update(seller);
+                return RedirectToAction(nameof(Index));
+            }
+            catch (NotFoundException)
+            {
+                return NotFound();
+            }
+            catch (DbConcurrencyException)
+            {
+                return BadRequest();
+            }
         }
     }
 }

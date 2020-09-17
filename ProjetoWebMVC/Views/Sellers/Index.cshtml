@@ -7,7 +7,8 @@
 <h2>@ViewData["Title"]</h2>
 
 <p>
-    <a asp-action="Create" class="btn btn-default">Create new</a>
+    <!--botao para criar novo vendedor -->
+    <a asp-action="Create" class="btn btn-default">Create new Seller</a>
 </p>
 
 <table class="table table-striped table-hover">
@@ -47,6 +48,7 @@
                 @Html.DisplayFor(modelItem => item.BaseSalary)
             </td>
             <td>
+                <!--Funcoes de edição, detalhes e deleção dos vendedores -->
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a>
                 <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
@@ -56,5 +58,5 @@
         }
     </tbody>
 
-<p>Sellers index page</p>
+</table>
 
