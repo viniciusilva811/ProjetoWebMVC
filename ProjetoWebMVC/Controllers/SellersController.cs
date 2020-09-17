@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using ProjetoWebMVC.Models;
 using ProjetoWebMVC.Services;
 
 namespace ProjetoWebMVC.Controllers
@@ -21,6 +22,18 @@ namespace ProjetoWebMVC.Controllers
             var list = _sellerService.FindAll();
 
             return View(list);
+        }
+
+        public IActionResult Create()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Create(Seller seller) 
+        {
+            _sellerService.Insert(seller);
+            return RedirectToAction(nameof(Index));
+            //redireciona a requisicao para o Index
         }
     }
 }

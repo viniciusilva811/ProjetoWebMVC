@@ -11,7 +11,7 @@ namespace ProjetoWebMVC.Services
     {
         private readonly ProjetoWebMVCContext _context;
 
-        public SellerService(ProjetoWebMVCContext context) 
+        public SellerService(ProjetoWebMVCContext context)
         {
             _context = context;
         }
@@ -19,6 +19,12 @@ namespace ProjetoWebMVC.Services
         public List<Seller> FindAll()
         {
             return _context.Seller.ToList();
+        }
+
+        public void Insert(Seller obj) 
+        {
+            _context.Add(obj);
+            _context.SaveChanges();
         }
     }
 }
