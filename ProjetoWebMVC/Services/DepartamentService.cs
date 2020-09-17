@@ -7,24 +7,18 @@ using System.Threading.Tasks;
 
 namespace ProjetoWebMVC.Services
 {
-    public class SellerService
+    public class DepartamentService
     {
         private readonly ProjetoWebMVCContext _context;
 
-        public SellerService(ProjetoWebMVCContext context)
+        public DepartamentService(ProjetoWebMVCContext context)
         {
             _context = context;
         }
 
-        public List<Seller> FindAll()
+        public List<Departament> FindAll()
         {
-            return _context.Seller.ToList();
-        }
-
-        public void Insert(Seller obj) 
-        {
-            _context.Add(obj);
-            _context.SaveChanges();
+            return _context.Departament.OrderBy(x => x.Name).ToList();
         }
     }
 }

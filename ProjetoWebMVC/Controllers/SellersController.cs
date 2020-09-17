@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ProjetoWebMVC.Models;
+using ProjetoWebMVC.Models.ViewModels;
 using ProjetoWebMVC.Services;
 
 namespace ProjetoWebMVC.Controllers
@@ -12,9 +13,12 @@ namespace ProjetoWebMVC.Controllers
     {
         private readonly SellerService _sellerService;
 
-        public SellersController(SellerService sellerService)
+        private readonly DepartamentService _departamentService;
+
+        public SellersController(SellerService sellerService, DepartamentService departamentService)
         {
             _sellerService = sellerService;
+            _departamentService = departamentService;
         }
 
         public IActionResult Index()
@@ -26,7 +30,9 @@ namespace ProjetoWebMVC.Controllers
 
         public IActionResult Create()
         {
-            return View();
+            var departaments = _departamentService.FindAll();
+            var viewModel = new SellerFormViewModel { Departaments = departaments };
+            return View(viewModel); //pegar os departamentos na hora da criaçao
         }
         [HttpPost]
         public IActionResult Create(Seller seller) 
