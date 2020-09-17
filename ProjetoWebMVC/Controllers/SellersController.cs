@@ -63,8 +63,8 @@ namespace ProjetoWebMVC.Controllers
         [HttpPost]
         public IActionResult Delete(int id)
         {
-            _sellerService.Remove(id);
-            return RedirectToAction(nameof(Index));
+                _sellerService.Remove(id);
+                return RedirectToAction(nameof(Index));
         }
 
         public IActionResult Details(int? id) 
