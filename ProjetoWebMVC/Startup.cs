@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using ProjetoWebMVC.Data;
+using ProjetoWebMVC.Services;
 
 namespace ProjetoWebMVC
 {
@@ -40,7 +41,8 @@ namespace ProjetoWebMVC
                     options.UseMySql(Configuration.GetConnectionString("ProjetoWebMVCContext"), builder =>
                     builder.MigrationsAssembly("ProjetoWebMVC")));
 
-            services.AddScoped<SeedingService>();  
+            services.AddScoped<SeedingService>();
+            services.AddScoped<SellerService>();
 
         }
 
