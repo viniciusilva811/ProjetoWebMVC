@@ -1,4 +1,5 @@
-﻿using ProjetoWebMVC.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using ProjetoWebMVC.Data;
 using ProjetoWebMVC.Models;
 using System;
 using System.Collections.Generic;
@@ -28,8 +29,9 @@ namespace ProjetoWebMVC.Services
         }
 
         public Seller FindById(int id) 
-        {
-            return _context.Seller.FirstOrDefault(obj => obj.Id == id);
+        {//puxa o ID do departamento dentro da pagina
+            return _context.Seller.Include(obj => obj.Departament)
+                .FirstOrDefault(obj => obj.Id == id);
         }
 
         public void Remove(int id)
