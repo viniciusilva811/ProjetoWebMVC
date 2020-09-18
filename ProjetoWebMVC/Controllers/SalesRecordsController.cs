@@ -22,7 +22,7 @@ namespace ProjetoWebMVC.Controllers
         }
 
         public IActionResult SimpleSearch(DateTime? minDate, DateTime? maxDate)
-        {//se a data nao for informada, ele faz a busca desde o primeiro dia do ano até o dia atual da busca.
+        {//se a data nao for informada, ele faz a busca desde o primeiro dia do ano até o dia atual da busca
             if (!minDate.HasValue)
             {
                 minDate = new DateTime(DateTime.Now.Year, 1, 1);
